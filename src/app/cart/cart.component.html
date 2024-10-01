@@ -1,0 +1,23 @@
+<div class="cart">
+  <h2>Your Cart</h2>
+  <div class="cart-items">
+    <div *ngFor="let item of items; let i = index" class="cart-item">
+      <div class="item-details">
+        <img [src]="item.imageUrl" alt="{{ item.title }}" class="item-image">
+        <span class="item-title">{{ item.title }}</span>
+        <span class="item-price">${{ item.price }}</span>
+      </div>
+      <div class="item-quantity">
+        <button (click)="updateQuantity(i, item.quantity - 1)">-</button>
+        <span>{{ item.quantity }}</span>
+        <button (click)="updateQuantity(i, item.quantity + 1)">+</button>
+      </div>
+      <button class="remove-item" (click)="removeItem(i)">Remove</button>
+    </div>
+  </div>
+  <div class="cart-total">
+    <span>Total:</span>
+    <span>${{ total.toFixed(2) }}</span>
+  </div>
+  <button class="checkout-button" (click)="checkout()">Checkout</button>
+</div>

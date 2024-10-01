@@ -1,0 +1,15 @@
+// src/app/main-dishes/main-dishes.component.scss
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.main-dishes {
+  padding-top: 300px; // Adjust padding to match the navbar height
+  font-family: 'Poppins', sans-serif; // Apply Poppins font
+}
+
+.menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px; // Add space between menu items
+  justify-content: center; // Center the menu items
+  margin-top: 130px; // Add margin above the cards
+}

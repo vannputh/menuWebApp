@@ -1,0 +1,79 @@
+// Import Poppins font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+// Variables
+$navbar-bg-color: red;
+$navbar-text-color: white;
+$navbar-padding: 20px; // Uniform padding
+$font-size-large: 24px;
+$font-size-medium: 18px;
+$link-spacing: 40px; // Increase spacing between links
+
+// src/app/navbar/navbar.component.scss
+.navbar {
+  background-color: $navbar-bg-color;
+  padding: $navbar-padding;
+  color: $navbar-text-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      width: 40px; // Adjust the width as needed
+      height: auto;
+      margin-right: 10px; // Space between logo and text
+    }
+
+    h1 {
+      margin: 0;
+      font-size: $font-size-large;
+    }
+  }
+
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-left: $link-spacing;
+
+      a {
+        color: $navbar-text-color;
+        text-decoration: none;
+        font-size: $font-size-medium;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.active {
+          font-weight: bold;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .fa-shopping-cart {
+      font-size: $font-size-large;
+    }
+  }
+}
+

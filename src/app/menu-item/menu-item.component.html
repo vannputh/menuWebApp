@@ -1,0 +1,15 @@
+<div class="card">
+  <img [src]="imageSrc" alt="{{ title }}">
+  <div class="card-body">
+    <div class="card-title">{{ title }}</div>
+    <div class="card-price">${{ price }}</div>
+    <div class="counter-and-cart">
+      <div class="counter">
+        <button (click)="decrement()">-</button>
+        <span>{{ count }}</span>
+        <button (click)="increment()">+</button>
+      </div>
+      <button class="add-to-cart" (click)="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+</div>
