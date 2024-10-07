@@ -1,15 +1,12 @@
-// Import Poppins font
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-// Variables
-$navbar-bg-color: red;
+$navbar-bg-color: #CD1C18;
 $navbar-text-color: white;
-$navbar-padding: 20px; // Uniform padding
+$navbar-padding: 20px;
 $font-size-large: 24px;
 $font-size-medium: 18px;
-$link-spacing: 40px; // Increase spacing between links
+$link-spacing: 40px;
 
-// src/app/navbar/navbar.component.scss
 .navbar {
   background-color: $navbar-bg-color;
   padding: $navbar-padding;
@@ -18,7 +15,7 @@ $link-spacing: 40px; // Increase spacing between links
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1100;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
 
@@ -35,9 +32,9 @@ $link-spacing: 40px; // Increase spacing between links
     align-items: center;
 
     .logo {
-      width: 40px; // Adjust the width as needed
+      width: 40px;
       height: auto;
-      margin-right: 10px; // Space between logo and text
+      margin-right: 10px;
     }
 
     h1 {
@@ -74,6 +71,16 @@ $link-spacing: 40px; // Increase spacing between links
     .fa-shopping-cart {
       font-size: $font-size-large;
     }
+
+    .cart {
+      margin-right: 10px;
+    }
+    .cart img {
+      padding-top: 10px;
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
   }
+}
 }
 
