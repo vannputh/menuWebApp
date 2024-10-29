@@ -1,38 +1,7 @@
 <div class="menu-items">
-  <app-menu-item
-    imageSrc="https://www.allrecipes.com/thmb/tCt2q6Sly6Spyu7fsM5c3Vxs8DI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/14759-pork-dumplings-DDMFS-4x3-f87c9459ec73475f9dcab4cc651c46d3.jpg"
-    title="Pork Dumplings"
-    [price]="5.99">
-  </app-menu-item>
-
-  <app-menu-item
-    imageSrc="https://thewanderlustkitchen.com/wp-content/uploads/2013/12/Perfect-White-Rice-Recipe-Redo-17.jpg"
-    title="Steamed Rice"
-    [price]="2.55">
-  </app-menu-item>
-
-  <app-menu-item
-    imageSrc="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/56MV52XSXUI6TO362IBG5YGBTE.jpg&w=1440"
-    title="Hand-Pulled Noodles"
-    [price]="3.99">
-  </app-menu-item>
-
-  <app-menu-item
-    imageSrc="https://i0.wp.com/blog.themalamarket.com/wp-content/uploads/2022/06/chasiu-bao-newsletter-50.jpg?w=1200&ssl=1"
-    title="Pork Buns"
-    [price]="5.59">
-  </app-menu-item>
-
-  <app-menu-item
-    imageSrc="https://foodcrumbles.com/wp-content/uploads/2018/12/untitled-6-of-20-1.jpg"
-    title="Instant Noodles"
-    [price]="1.99">
-  </app-menu-item>
-
-  <app-menu-item
-    imageSrc="https://www.bhg.com/thmb/ixTsjgfC6YgvnzE7HgC7vegaQ_s=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/bhg-pork-and-shitake-steamed-dumplings-FmOg5-5J4gv94CccQYTVph-0ef0a4a8987244759154f9e5e1b1819e.jpg"
-    title="Xiao Long Bao"
-    [price]="10.99">
-  </app-menu-item>
-
+    <app-menu-item *ngFor="let sideDish of SideDishes" class="drink-item">
+        <h1>{{ sideDish.title }}</h1>
+        <p>Price: {{ sideDish.price }}</p>
+        <img [src]="sideDish.imageSrc" alt="{{ sideDish.title }}">
+    </app-menu-item>
 </div>

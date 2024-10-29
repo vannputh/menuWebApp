@@ -23,8 +23,13 @@ $link-spacing: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0;
+    padding: 10px 0;
+
+    .navbar-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
   }
 
   .navbar-brand {
@@ -57,6 +62,8 @@ $link-spacing: 40px;
         text-decoration: none;
         font-size: $font-size-medium;
 
+
+
         &:hover {
           text-decoration: underline;
         }
@@ -81,6 +88,8 @@ $link-spacing: 40px;
       height: 30px;
       object-fit: contain;
   }
+
 }
+
 }
 
