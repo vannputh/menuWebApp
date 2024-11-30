@@ -19,6 +19,22 @@ $link-spacing: 40px;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
 
+  &.dark-mode {
+    background-color: #9a0202;
+    color: #f0f0f0;
+
+    .navbar-links {
+      li {
+        a {
+          color: #f0f0f0;
+        }
+      }
+    }
+
+    .cart img {
+    }
+  }
+
   .navbar-content {
     display: flex;
     justify-content: space-between;
@@ -62,8 +78,6 @@ $link-spacing: 40px;
         text-decoration: none;
         font-size: $font-size-medium;
 
-
-
         &:hover {
           text-decoration: underline;
         }
@@ -82,14 +96,22 @@ $link-spacing: 40px;
     .cart {
       margin-right: 10px;
     }
+
     .cart img {
-      padding-top: 10px;
       width: 30px;
       height: 30px;
       object-fit: contain;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+
+      &:active {
+        transform: scale(0.85);
+        filter: brightness(0.1);
+      }
+    }
   }
-
 }
-
-}
-
