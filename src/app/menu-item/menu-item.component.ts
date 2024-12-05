@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CartService } from '../cart/cart.service';
+import { CartItem } from '../cart/cart-item.interface';
 
 @Component({
   selector: 'app-menu-item',
@@ -10,9 +12,10 @@ export class MenuItemComponent {
   @Input() imageSrc!: string;
   @Input() title!: string;
   @Input() price!: number;
-  @Output() addToCartEvent = new EventEmitter<{title: string, price: number, quantity: number}>();
 
   count: number = 1;
+
+  constructor(private cartService: CartService) {}
 
   increment() {
     this.count++;
@@ -25,10 +28,16 @@ export class MenuItemComponent {
   }
 
   addToCart() {
-    this.addToCartEvent.emit({
+    const cartItem: CartItem = {
+      imageUrl: this.imageSrc,
       title: this.title,
       price: this.price,
       quantity: this.count
-    });
+    };
+
+    this.cartService.addToCart(cartItem);
+
+    // Reset count after adding to cart
+    this.count = 1;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CartService } from './cart.service';
 import { CartItem } from './cart-item.interface';
 
@@ -6,6 +7,7 @@ import { CartItem } from './cart-item.interface';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   standalone: true,
+  imports: [CommonModule],
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
@@ -31,17 +33,15 @@ export class CartComponent implements OnInit {
   }
 
   updateQuantity(index: number, quantity: number) {
-    if (quantity < 1) return;
-    this.items[index].quantity = quantity;
-    this.calculateTotal();
+    this.cartService.updateQuantity(index, quantity);
   }
 
   removeItem(index: number) {
-    this.items.splice(index, 1);
-    this.calculateTotal();
+    this.cartService.removeItem(index);
   }
 
   checkout() {
     // Implement checkout logic
+    console.log('Checkout initiated');
   }
 }
