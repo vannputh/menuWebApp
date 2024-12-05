@@ -1,43 +1,43 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { CartService } from '../cart/cart.service';
-import { CartItem } from '../cart/cart-item.interface';
+import { AddToCartDialogComponent } from './add-to-cart-dialog.component';
 
 @Component({
   selector: 'app-menu-item',
   templateUrl: './menu-item.component.html',
   standalone: true,
+  imports: [
+    MatDialogModule
+  ],
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent {
   @Input() imageSrc!: string;
   @Input() title!: string;
   @Input() price!: number;
+  @Output() addToCartEvent = new EventEmitter<{ title: string; price: number; quantity: number }>();
 
-  count: number = 1;
-
-  constructor(private cartService: CartService) {}
-
-  increment() {
-    this.count++;
-  }
-
-  decrement() {
-    if (this.count > 1) {
-      this.count--;
-    }
-  }
+  constructor(
+      private dialog: MatDialog,
+      private cartService: CartService
+  ) {}
 
   addToCart() {
-    const cartItem: CartItem = {
-      imageUrl: this.imageSrc,
-      title: this.title,
-      price: this.price,
-      quantity: this.count
-    };
+    const dialogRef = this.dialog.open(AddToCartDialogComponent, {
+      width: '500px',
+      data: {
+        title: this.title,
+        price: this.price,
+        imageSrc: this.imageSrc
+      }
+    });
 
-    this.cartService.addToCart(cartItem);
-
-    // Reset count after adding to cart
-    this.count = 1;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cartService.addToCart(result);
+      }
+    });
   }
 }

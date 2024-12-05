@@ -5,7 +5,8 @@
       <div class="item-details">
         <img [src]="item.imageUrl" alt="{{ item.title }}" class="item-image">
         <span class="item-title">{{ item.title }}</span>
-        <span class="item-price">${{ item.price }}</span>
+        <span class="item-price">${{ item.price }}</span><p *ngIf="item.specialInstructions" class="special-instructions">
+              Note: {{ item.specialInstructions }}
       </div>
       <div class="item-quantity">
         <button (click)="updateQuantity(i, item.quantity - 1)">-</button>

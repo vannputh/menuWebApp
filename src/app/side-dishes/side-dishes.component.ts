@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuItemComponent } from "../menu-item/menu-item.component";
 import { SideDishesService } from './side-dishes.service';
 import { SideDish } from './side-dishes.interface';
+import {AddToCartDialogComponent} from "../menu-item/add-to-cart-dialog.component";
 
 @Component({
   selector: 'app-side-dishes',
@@ -19,13 +20,14 @@ import { SideDish } from './side-dishes.interface';
         [imageSrc]="dish.imageSrc"
         [title]="dish.title"
         [price]="dish.price"
-        (addToCartEvent)="onAddToCart($event)">
+        (addToCartEvent)="onAddToCart({ imageSrc: dish.imageSrc, title: dish.title, price: dish.price, quantity: 1 })">
       </app-menu-item>
     </div>
   `
 })
 export class SideDishesComponent implements OnInit {
   sideDishes: SideDish[] = [];
+    private dialog: any;
 
   constructor(private sideDishesService: SideDishesService) {}
 
@@ -41,7 +43,16 @@ export class SideDishesComponent implements OnInit {
         });
   }
 
-  onAddToCart(event: {title: string, price: number, quantity: number}) {
-    console.log('Added to cart:', event);
-  }
+    onAddToCart(item: {
+        imageSrc: any;
+        title: string; price: number; quantity: number }) {
+        const dialogRef = this.dialog.open(AddToCartDialogComponent, {
+            width: '500px',
+            data: {
+                title: item.title,
+                price: item.price,
+                imageSrc: item.imageSrc
+            }
+        });
+}
 }

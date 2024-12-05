@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuItemComponent } from "../menu-item/menu-item.component";
 import { MainDishesService } from './main-dishes.service';
 import { MainDish } from './main-dishes.interface';
+import {AddToCartDialogComponent} from "../menu-item/add-to-cart-dialog.component";
 
 @Component({
   selector: 'app-main-dishes',
@@ -14,18 +15,19 @@ import { MainDish } from './main-dishes.interface';
   styleUrl: './main-dishes.component.scss',
   template: `
     <div class="menu-items">
-      <app-menu-item
+      <app-menu-item>
         *ngFor="let dish of mainDishes"
         [imageSrc]="dish.imageSrc"
         [title]="dish.title"
         [price]="dish.price"
-        (addToCartEvent)="onAddToCart($event)">
+        onAddToCart(item: &#123; title: string; price: number; quantity: number &#125;) &#123;
       </app-menu-item>
     </div>
   `
 })
 export class MainDishesComponent implements OnInit {
   mainDishes: MainDish[] = [];
+    private dialog: any;
 
   constructor(private mainDishesService: MainDishesService) {}
 
@@ -41,7 +43,16 @@ export class MainDishesComponent implements OnInit {
         });
   }
 
-  onAddToCart(event: {title: string, price: number, quantity: number}) {
-    console.log('Added to cart:', event);
+    onAddToCart(item: {
+        imageSrc: any;
+        title: string; price: number; quantity: number }) {
+        const dialogRef = this.dialog.open(AddToCartDialogComponent, {
+            width: '500px',
+            data: {
+                title: item.title,
+                price: item.price,
+                imageSrc: item.imageSrc
+            }
+        });
   }
 }
