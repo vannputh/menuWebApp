@@ -26,19 +26,7 @@ export class AppComponent {
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    if (this.isDarkMode) {
-      const navbar = document.querySelector('.navbar');
-      if (navbar) {
-        this.renderer.addClass(navbar, 'dark-mode');
-      }
-    } else {
-      this.renderer.removeClass(document.documentElement, 'dark-mode');
-      this.renderer.removeClass(document.body, 'dark-mode');
-
-      const navbar = document.querySelector('.navbar');
-      if (navbar) {
-        this.renderer.removeClass(navbar, 'dark-mode');
-      }
-    }
+    document.documentElement.classList.toggle('dark-mode', this.isDarkMode);
+    document.body.classList.toggle('dark-mode', this.isDarkMode);
   }
 }
