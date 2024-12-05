@@ -15,12 +15,12 @@ import {AddToCartDialogComponent} from "../menu-item/add-to-cart-dialog.componen
     styleUrl: './drinks.component.scss',
     template: `
     <div class="menu-items">
-      <app-menu-item>
+      <app-menu-item
         *ngFor="let drink of drinks"
         [imageSrc]="drink.imageSrc"
         [title]="drink.title"
         [price]="drink.price"
-        onAddToCart(item: &#123; title: string; price: number; quantity: number &#125;) &#123;
+        (addToCartEvent)="onAddToCart({ imageSrc: drink.imageSrc, title: drink.title, price: drink.price, quantity: 1 })">
       </app-menu-item>
     </div>
   `
