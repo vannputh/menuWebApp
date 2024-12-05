@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainDishesComponent } from './main-dishes/main-dishes.component';
 import { SideDishesComponent } from './side-dishes/side-dishes.component';
+import { DrinksComponent } from './drinks/drinks.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainDishesComponent,
-    SideDishesComponent
+    SideDishesComponent,
+    DrinksComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

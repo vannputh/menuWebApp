@@ -1,48 +1,47 @@
-// src/app/cart/cart.component.ts
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ItemService } from '../item.service';
-
-interface CartItem {
-  title: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { CartService } from './cart.service';
+import { CartItem } from './cart-item.interface';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
   items: CartItem[] = [];
+  total: number = 0;
 
-  constructor(private itemService: ItemService) {}
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {
-    this.items = this.itemService.getItems();
+  ngOnInit() {
+    this.cartService.getCartItems().subscribe({
+      next: (items) => {
+        this.items = items;
+        this.calculateTotal();
+      },
+      error: (error) => {
+        console.error('Error fetching cart items:', error);
+      }
+    });
   }
 
-  get total(): number {
-    return this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  calculateTotal() {
+    this.total = this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-  removeItem(index: number): void {
+  updateQuantity(index: number, quantity: number) {
+    if (quantity < 1) return;
+    this.items[index].quantity = quantity;
+    this.calculateTotal();
+  }
+
+  removeItem(index: number) {
     this.items.splice(index, 1);
+    this.calculateTotal();
   }
 
-  updateQuantity(index: number, newQuantity: number): void {
-    if (newQuantity > 0) {
-      this.items[index].quantity = newQuantity;
-    } else {
-      this.removeItem(index);
-    }
-  }
-
-  checkout(): void {
-    console.log('Checkout button clicked');
+  checkout() {
+    // Implement checkout logic
   }
 }

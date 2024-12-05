@@ -1,8 +1,0 @@
-<div *ngIf="drink">
-  <h2>Customize {{ drink.title }}</h2>
-  <img [src]="drink.imageSrc" alt="{{ drink.title }}">
-  <p>Price: ${{ drink.price }}</p>
-  <label for="quantity">Quantity:</label>
-  <input type="number" id="quantity" name="quantity" min="1" value="1">
-  <button (click)="addToCart()">Add to Cart</button>
-</div>
