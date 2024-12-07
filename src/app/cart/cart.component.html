@@ -2,11 +2,11 @@
   <h2>Your Cart</h2>
   <div class="cart-items">
     <div *ngFor="let item of items; let i = index" class="cart-item">
+      <img [src]="item.imageUrl" alt="{{ item.title }}" class="item-image">
       <div class="item-details">
-        <img [src]="item.imageUrl" alt="{{ item.title }}" class="item-image">
         <span class="item-title">{{ item.title }}</span>
-        <span class="item-price">${{ item.price }}</span><p *ngIf="item.specialInstructions" class="special-instructions">
-              Note: {{ item.specialInstructions }}
+        <span class="item-price">${{ item.price }}</span>
+        <p *ngIf="item.specialInstructions" class="special-instructions">{{ item.specialInstructions }}</p>
       </div>
       <div class="item-quantity">
         <button (click)="updateQuantity(i, item.quantity - 1)">-</button>

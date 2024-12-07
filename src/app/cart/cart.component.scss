@@ -4,7 +4,7 @@
   max-width: 600px;
   margin-top: 130px;
   margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .cart {
@@ -18,7 +18,7 @@
     color: white;
     margin: 0;
     padding: 16px;
-    font-size: 1.3rem;
+    font-size: 1.5rem; /* Increased font size */
     text-align: center;
     font-family: 'Poppins', sans-serif;
   }
@@ -28,7 +28,6 @@
 
     .cart-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
       padding-bottom: 16px;
@@ -38,30 +37,36 @@
         border-bottom: none;
       }
 
+      .item-image {
+        width: 120px; /* Increased size */
+        height: 120px; /* Increased size */
+        border-radius: 5px;
+        margin-right: 20px;
+      }
+
       .item-details {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         font-family: 'Poppins', sans-serif;
-        margin-left: 10px;
+        flex-grow: 1;
 
         .item-title {
-          font-size: 1rem;
+          font-size: 1.2rem; /* Increased font size */
+          font-weight: bold; /* Added font weight */
           margin-bottom: 4px;
-          font-family: 'Poppins', sans-serif;
         }
 
         .item-price {
-          font-size: 0.9rem;
+          font-size: 1.1rem; /* Increased font size */
           color: #666;
-          font-family: 'Poppins', sans-serif;
+          margin-bottom: 4px; /* Added margin */
         }
-      }
 
-      .item-image {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
+        .special-instructions {
+          font-size: 1rem; /* Increased font size */
+          color: #999;
+        }
       }
 
       .item-quantity {
@@ -88,7 +93,7 @@
 
         span {
           margin: 0 10px;
-          font-size: 1rem;
+          font-size: 1.2rem; /* Increased font size */
         }
       }
 
@@ -98,7 +103,7 @@
         color: red;
         border: none;
         cursor: pointer;
-        font-size: 0.8rem;
+        font-size: 1rem; /* Increased font size */
         transition: opacity 0.3s;
 
         &:hover {
@@ -114,7 +119,7 @@
     padding: 16px;
     background-color: #f8f8f8;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased font size */
     font-family: 'Poppins', sans-serif;
   }
 
@@ -127,7 +132,7 @@
     border: none;
     border-radius: 0 0 8px 8px;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Increased font size */
     font-family: 'Poppins', sans-serif;
     text-align: center;
     transition: background-color 0.3s;
