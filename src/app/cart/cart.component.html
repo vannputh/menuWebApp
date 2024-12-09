@@ -6,6 +6,10 @@
       <div class="item-details">
         <span class="item-title">{{ item.title }}</span>
         <span class="item-price">${{ item.price }}</span>
+        <p *ngIf="item.sugarLevel" class="sugar-level">Sugar Level: {{ item.sugarLevel }}</p>
+        <p *ngIf="item.iceLevel" class="ice-level">Ice Level: {{ item.iceLevel }}</p>
+        <p *ngIf="item.spiceLevel" class="spice-level">Spice Level: {{ item.spiceLevel }}</p>
+        <p *ngIf="item.soupType" class="soup-type">Soup Type: {{ item.soupType }}</p>
         <p *ngIf="item.specialInstructions" class="special-instructions">{{ item.specialInstructions }}</p>
       </div>
       <div class="item-quantity">

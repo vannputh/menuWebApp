@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MenuItemComponent } from "../menu-item/menu-item.component";
 import { DrinksService } from './drinks.service';
 import { Drink } from './drink.interface';
-import {AddToCartDialogComponent} from "../menu-item/add-to-cart-dialog.component";
 
 @Component({
     selector: 'app-drinks',
@@ -20,7 +19,7 @@ import {AddToCartDialogComponent} from "../menu-item/add-to-cart-dialog.componen
         [imageSrc]="drink.imageSrc"
         [title]="drink.title"
         [price]="drink.price"
-        (addToCartEvent)="onAddToCart({ imageSrc: drink.imageSrc, title: drink.title, price: drink.price, quantity: 1 })">
+        itemType="drink">
       </app-menu-item>
     </div>
   `
@@ -42,18 +41,4 @@ export class DrinksComponent implements OnInit {
                 }
             });
     }
-
-    onAddToCart(item: {
-        imageSrc: any;
-        title: string; price: number; quantity: number }) {
-        const dialogRef = this.dialog.open(AddToCartDialogComponent, {
-            width: '500px',
-            data: {
-                title: item.title,
-                price: item.price,
-                imageSrc: item.imageSrc
-            }
-        });
 }
-}
-

@@ -20,7 +20,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-AAG3PRBS.js";
+} from "./chunk-VKKEXDPK.js";
 import {
   animate,
   animateChild,

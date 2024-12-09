@@ -3,4 +3,5 @@ export interface MainDish {
   title: string;
   price: number;
   imageSrc: string;
+  category: string;
 }

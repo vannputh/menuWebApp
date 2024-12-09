@@ -40,6 +40,78 @@
                                 class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
                         >
                     </div>
+
+                    <!-- Conditional Inputs -->
+                    <div *ngIf="itemType === 'drink'" class="mb-5">
+                        <label class="block font-semibold text-gray-800 mb-2 font-poppins">Sugar Level</label>
+                        <select
+                                [(ngModel)]="dialogSugarLevel"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
+                        >
+                            <option value="0%">0%</option>
+                            <option value="25%">25%</option>
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="itemType === 'drink'" class="mb-5">
+                        <label class="block font-semibold text-gray-800 mb-2 font-poppins">Ice Level</label>
+                        <select
+                                [(ngModel)]="dialogIceLevel"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
+                        >
+                            <option value="0%">0%</option>
+                            <option value="25%">25%</option>
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="itemType === 'main'" class="mb-5">
+                        <label class="block font-semibold text-gray-800 mb-2 font-poppins">Spice Level</label>
+                        <select
+                                [(ngModel)]="dialogSpiceLevel"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
+                        >
+                            <option value="0%">0%</option>
+                            <option value="25%">25%</option>
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="itemType === 'soup'" class="mb-5">
+                        <label class="block font-semibold text-gray-800 mb-2 font-poppins">Spice Level</label>
+                        <select
+                                [(ngModel)]="dialogSpiceLevel"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
+                        >
+                            <option value="0%">0%</option>
+                            <option value="25%">25%</option>
+                            <option value="50%">50%</option>
+                            <option value="75%">75%</option>
+                            <option value="100%">100%</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="itemType === 'soup'" class="mb-5">
+                        <label class="block font-semibold text-gray-800 mb-2 font-poppins">Soup Type</label>
+                        <select
+                                [(ngModel)]="dialogSoupType"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 outline-none font-poppins"
+                        >
+                            <option value="sichuan_spicy">Sichuan Spicy Broth</option>
+                            <option value="chongqing_spicy">Chongqing Spicy Broth</option>
+                            <option value="milky_broth">Milky Mala Broth</option>
+                            <option value="tomato">Tomato Broth</option>
+                            <option value="wild_mushroom">Wild Mushroom Broth</option>
+
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -72,7 +144,3 @@
         </div>
     </div>
 </ng-template>
-
-
-
-
