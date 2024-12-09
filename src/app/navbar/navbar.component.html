@@ -1,18 +1,53 @@
-<nav class="navbar">
-  <div class="navbar-content flex justify-between items-center">
-    <div class="navbar-brand flex items-center">
-      <img src="/logo.svg" alt="Logo" class="logo w-20 h-20">
-      <h1 class="ml-4 text-2xl font-bold">MaLoveTang</h1>
+<nav class="bg-[#CD1C18] fixed top-0 left-0 w-full z-[1200] px-6 py-6 text-white font-['Poppins']">
+    <div class="flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="/logo.svg" alt="Logo" class="w-12 h-auto mr-3">
+            <h1 class="text-3xl font-bold">MaLoveTang</h1>
+        </div>
+        <ul class="flex items-center space-x-12">
+            <li>
+                <a
+                        routerLink="/main-dishes"
+                        routerLinkActive="active"
+                        class="text-lg text-white hover:text-red-500 hover:underline focus:font-bold"
+                >
+                    Main Dishes
+                </a>
+            </li>
+            <li>
+                <a
+                        routerLink="/side-dishes"
+                        routerLinkActive="active"
+                        class="text-lg text-white hover:text-red-500 hover:underline focus:font-bold"
+                >
+                    Side Dishes
+                </a>
+            </li>
+            <li>
+                <a
+                        routerLink="/drinks"
+                        routerLinkActive="active"
+                        class="text-lg text-white hover:text-red-500 hover:underline focus:font-bold"
+                >
+                    Drinks
+                </a>
+            </li>
+            <li class="cart group">
+                <a
+                        routerLink="/cart"
+                        routerLinkActive="active"
+                        class="block w-10 h-10 transition-transform duration-300 ease-in-out"
+                >
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            class="w-8 h-8 invert group-hover:scale-110 group-hover:opacity-80 group-active:scale-[0.85] group-active:brightness-[0.1]"
+                    >
+                        <title>cart-outline</title>
+                        <path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </div>
-    <ul class="navbar-links flex space-x-4">
-      <li><a routerLink="/main-dishes" routerLinkActive="active" class="hover:text-red-500">Main Dishes</a></li>
-      <li><a routerLink="/side-dishes" routerLinkActive="active" class="hover:text-red-500">Side Dishes</a></li>
-      <li><a routerLink="/drinks" routerLinkActive="active" class="hover:text-red-500">Drinks</a></li>
-      <li class="cart"><a routerLink="/cart" routerLinkActive="active" class="hover:text-red-500">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8">
-  <title>cart-outline</title>
-  <path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
-</svg>      </a></li>
-    </ul>
-  </div>
 </nav>

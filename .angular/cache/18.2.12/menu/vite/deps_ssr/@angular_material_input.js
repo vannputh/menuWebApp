@@ -13,18 +13,18 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-VKKEXDPK.js";
 import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  Validators
-} from "./chunk-W3EK6ODH.js";
-import {
   animate,
   state,
   style,
   transition,
   trigger
 } from "./chunk-5EZGYMGW.js";
+import {
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+  Validators
+} from "./chunk-W3EK6ODH.js";
 import {
   CommonModule,
   DOCUMENT,

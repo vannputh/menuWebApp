@@ -15,7 +15,15 @@ export class CartService {
 
   addToCart(item: CartItem) {
     const currentItems = [...this.cartItemsSubject.value];
-    const existingItemIndex = currentItems.findIndex(cartItem => cartItem.title === item.title);
+    const existingItemIndex = currentItems.findIndex(cartItem =>
+      cartItem.title === item.title &&
+      cartItem.price === item.price &&
+      cartItem.sugarLevel === item.sugarLevel &&
+      cartItem.iceLevel === item.iceLevel &&
+      cartItem.spiceLevel === item.spiceLevel &&
+      cartItem.soupType === item.soupType &&
+      cartItem.specialInstructions === item.specialInstructions
+    );
 
     if (existingItemIndex > -1) {
       // If item exists, update its quantity
@@ -40,5 +48,10 @@ export class CartService {
     const currentItems = [...this.cartItemsSubject.value];
     currentItems.splice(index, 1);
     this.cartItemsSubject.next(currentItems);
+  }
+
+  clearCart() {
+    //clear cart
+    this.cartItemsSubject.next([]);
   }
 }

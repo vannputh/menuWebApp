@@ -58,11 +58,19 @@ export class MenuItemComponent {
     // Reset quantity and special instructions when dialog opens
     this.dialogQuantity = 1;
     this.dialogSpecialInstructions = '';
-    this.dialogSugarLevel = '';
-    this.dialogIceLevel = '';
-    this.dialogSpiceLevel = '';
-    this.dialogSoupType = '';
+    this.dialogSugarLevel = '100%';
+    this.dialogIceLevel = '100%';
+    this.dialogSpiceLevel = '100%';
+    this.dialogSoupType = 'sichuan_spicy';
   }
+
+  soupTypeLabels: { [key: string]: string } = {
+    sichuan_spicy: 'Sichuan Spicy Broth',
+    chongqing_spicy: 'Chongqing Spicy Broth',
+    milky_broth: 'Milky Mala Broth',
+    tomato: 'Tomato Broth',
+    wild_mushroom: 'Wild Mushroom Broth'
+  };
 
   onAddToCart(dialogRef: MatDialogRef<any>): void {
     const cartItem: CartItem = {
