@@ -24,7 +24,7 @@ import {
   coerceNumberProperty,
   getSupportedInputTypes,
   normalizePassiveListenerOptions
-} from "./chunk-YDSAW4ST.js";
+} from "./chunk-AAG3PRBS.js";
 import {
   CommonModule,
   DOCUMENT,

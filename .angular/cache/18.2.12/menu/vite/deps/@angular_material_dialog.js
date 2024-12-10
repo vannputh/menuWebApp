@@ -19,7 +19,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-VEELBVHM.js";
+} from "./chunk-C3D7JZCV.js";
 import {
   animate,
   animateChild,
@@ -92,7 +92,6 @@ import {
   ɵɵtemplate,
   ɵɵviewQuery
 } from "./chunk-DI64XV7G.js";
-import "./chunk-5OPE3T2R.js";
 import {
   animationFrameScheduler,
   asapScheduler,
@@ -101,6 +100,7 @@ import {
   isObservable,
   merge
 } from "./chunk-4N4GOYJH.js";
+import "./chunk-5OPE3T2R.js";
 import {
   ConnectableObservable,
   Observable,
