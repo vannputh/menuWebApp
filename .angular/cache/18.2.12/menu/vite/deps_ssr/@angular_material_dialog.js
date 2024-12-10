@@ -1,5 +1,15 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  animate,
+  animateChild,
+  group,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-5EZGYMGW.js";
+import {
   A11yModule,
   BidiModule,
   Directionality,
@@ -20,17 +30,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-VKKEXDPK.js";
-import {
-  animate,
-  animateChild,
-  group,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-5EZGYMGW.js";
+} from "./chunk-YDSAW4ST.js";
 import {
   DOCUMENT,
   Location

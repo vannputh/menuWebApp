@@ -1,7 +1,15 @@
 <app-navbar></app-navbar>
-<div class="main-content" [class.dark-mode]="isDarkMode">
+<div class="main-content dark:bg-black dark:text-white min-h-screen" [class.dark]="isDarkMode">
     <router-outlet></router-outlet>
 </div>
-<button class="dark-mode-toggle" (click)="toggleDarkMode()">
-    {{ isDarkMode ? '🌙' : '☀️' }}
-</button>
+<div class="fixed bottom-5 right-5">
+    <label class="relative inline-block w-24 h-12">
+        <input type="checkbox" class="opacity-0 w-0 h-0" (change)="toggleDarkMode()" [checked]="isDarkMode">
+        <span class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 dark:bg-gray-700 rounded-full transition duration-300 flex items-center justify-between px-3">
+            <span class="absolute left-1 top-1 bg-white w-10 h-10 rounded-full transition-transform duration-300 flex items-center justify-center text-2xl" [class.transform]="isDarkMode" [class.translate-x-12]="isDarkMode">
+                <span *ngIf="!isDarkMode">☀️</span>
+                <span *ngIf="isDarkMode">🌙</span>
+            </span>
+        </span>
+    </label>
+</div>

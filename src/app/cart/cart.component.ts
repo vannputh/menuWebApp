@@ -225,4 +225,10 @@ export class CartComponent implements OnInit {
   this.dialog.open(this.finalConfirmationDialog, dialogConfig);
 }
 
+  sendEmail() {
+    //send generated reciept pdf to email
+    this.generatePDF();
+
+
+  }
 }

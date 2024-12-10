@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {NgOptimizedImage} from "@angular/common";
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +8,18 @@ import {NgOptimizedImage} from "@angular/common";
   imports: [
     RouterLink,
     RouterLinkActive,
-    NgOptimizedImage
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+    cartCount: number = 0;
 
+    constructor(private cartService: CartService) {}
+
+    ngOnInit(): void {
+        this.cartService.cartItems$.subscribe(items => {
+            this.cartCount = items.reduce((count, item) => count + item.quantity, 0);
+        });
+    }
 }

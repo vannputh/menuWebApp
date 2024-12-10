@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CartService } from '../cart/cart.service';
 import { CartItem } from '../cart/cart-item.interface';
+import {RouterLink} from "@angular/router";
 
 export interface AddToCartDialogData {
   title: string;
@@ -21,7 +22,8 @@ export interface AddToCartDialogData {
     FormsModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterLink
   ],
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.scss']
