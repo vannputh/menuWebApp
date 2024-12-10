@@ -3,4 +3,5 @@ export interface Drink {
     imageSrc: string;
     title: string;
     price: number;
+    category: string;
 }

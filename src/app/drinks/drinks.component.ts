@@ -19,7 +19,7 @@ import { Drink } from './drink.interface';
         [imageSrc]="drink.imageSrc"
         [title]="drink.title"
         [price]="drink.price"
-        itemType="drink">
+        [itemType]="drink.category === 'Bottled' ? 'bottled' : 'drink'">
       </app-menu-item>
     </div>
   `

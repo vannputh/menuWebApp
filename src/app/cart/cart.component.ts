@@ -23,8 +23,7 @@ export class CartComponent implements OnInit {
   @ViewChild('receiptDialog', { static: true }) receiptDialog!: TemplateRef<any>;
     @ViewChild('finalConfirmationDialog', { static: true }) finalConfirmationDialog!: TemplateRef<any>;
 
-  private logoImage: string = '/Users/mac/Developer/Web Application/menuWebApp/src/assets/logo.svg';
-  private specialInstructions: string | undefined;
+  private logoImage: string = 'public/logo.png';  private specialInstructions: string | undefined;
   customerName: any;
   soupTypeNames: { [key: string]: string } = {
     sichuan_spicy: 'Sichuan Spicy Broth',
@@ -93,10 +92,6 @@ export class CartComponent implements OnInit {
       format: 'a4'
     });
 
-    // Set up colors and styles
-    const primaryColor = [220, 20, 60]; // Crimson red
-    const textColor = [0, 0, 0]; // Black
-
     // White background
     doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, 210, 297, 'F');
@@ -104,8 +99,7 @@ export class CartComponent implements OnInit {
     // Add logo
     if (this.logoImage) {
       try {
-        doc.addImage(this.logoImage, 'SVG', 20, 10, 30, 30);
-      } catch (err) {
+        doc.addImage(this.logoImage, 'SVG', 20, 10, 30, 30);      } catch (err) {
         console.error('Error adding logo:', err);
       }
     }
@@ -114,16 +108,13 @@ export class CartComponent implements OnInit {
     doc.setFontSize(20);
     doc.setTextColor(220, 20, 60);
     doc.setFont('helvetica', 'bold');
-    doc.text('MaLoveTang', 105, 25, { align: 'center' });
+    doc.text('KaiXin Official Receipt', 105, 25, { align: 'center' });
 
-    doc.setFontSize(12);
-    doc.setTextColor(220, 20, 60);
-    doc.text('Official Receipt', 105, 35, { align: 'center' });
-
-    // Order Details Header
+    // Customer Name Header
     doc.setFontSize(14);
     doc.setTextColor(220, 20, 60);
-    doc.text('Order Details', 105, 50, { align: 'center' });
+    doc.text(`Customer Name: ${this.customerName}`, 20, 50);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 50);
 
     // Table Headers
     doc.setFontSize(10);
@@ -131,9 +122,9 @@ export class CartComponent implements OnInit {
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(0, 0, 0);
     doc.text('Item', 20, 60);
-    doc.text('Quantity', 120, 60);
-    doc.text('Price', 160, 60);
-    doc.text('Subtotal', 190, 60);
+    doc.text('Quantity', 80, 60);
+    doc.text('Price', 120, 60);
+    doc.text('Subtotal', 160, 60);
 
     // Separator
     doc.setLineWidth(0.5);
@@ -150,12 +141,15 @@ export class CartComponent implements OnInit {
       const specialInstructions = item.specialInstructions ? `Note: ${item.specialInstructions}` : '';
       const iceLevel = item.iceLevel ? `Ice: ${item.iceLevel}` : '';
       const spiceLevel = item.spiceLevel ? `Spice: ${item.spiceLevel}` : '';
+      const iced = item.iced ? 'Iced' : '';
+      const toppings = item.topping ? `Toppings: ${item.topping}` : '';
+      const soupType = item.soupType ? `Soup Type: ${this.soupTypeNames[item.soupType]}` : '';
 
       doc.setTextColor(0, 0, 0);
       doc.text(item.title, 20, yOffset);
-      doc.text(item.quantity.toString(), 130, yOffset);
-      doc.text(`$${item.price.toFixed(2)}`, 160, yOffset);
-      doc.text(`$${subtotal.toFixed(2)}`, 190, yOffset);
+      doc.text(item.quantity.toString(), 80, yOffset);
+      doc.text(`$${item.price.toFixed(2)}`, 120, yOffset);
+      doc.text(`$${subtotal.toFixed(2)}`, 160, yOffset);
 
       // Additional item details on next line
       if (this.specialInstructions || iceLevel || spiceLevel) {
@@ -178,18 +172,18 @@ export class CartComponent implements OnInit {
     yOffset += 10;
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(0, 0, 0);
-    doc.text('Subtotal:', 160, yOffset);
-    doc.text(`$${this.total.toFixed(2)}`, 190, yOffset);
+    doc.text('Subtotal:', 120, yOffset);
+    doc.text(`$${this.total.toFixed(2)}`, 160, yOffset);
 
     yOffset += 6;
     doc.setFont('helvetica', 'normal');
-    doc.text('Tax (10%):', 160, yOffset);
-    doc.text(`$${(this.total * 0.1).toFixed(2)}`, 190, yOffset);
+    doc.text('Tax (10%):', 120, yOffset);
+    doc.text(`$${(this.total * 0.1).toFixed(2)}`, 160, yOffset);
 
     yOffset += 6;
     doc.setFont('helvetica', 'bold');
-    doc.text('Total:', 160, yOffset);
-    doc.text(`$${(this.total * 1.1).toFixed(2)}`, 190, yOffset);
+    doc.text('Total:', 120, yOffset);
+    doc.text(`$${(this.total * 1.1).toFixed(2)}`, 160, yOffset);
 
     // Payment Method
     yOffset += 15;
@@ -197,23 +191,20 @@ export class CartComponent implements OnInit {
     doc.setTextColor(0, 0, 0);
     doc.text(`Payment Method: ${this.paymentMethod.toUpperCase()}`, 20, yOffset);
 
-    // QR Code
-    if (this.qrCodeUrl) {
-      try {
-        doc.addImage(this.qrCodeUrl, 'PNG', 160, yOffset, 30, 30);
-      } catch (err) {
-        console.error('Error adding QR code:', err);
-      }
-    }
-
     // Footer
     yOffset = 280;
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text('Thank you for your purchase!', 105, yOffset, { align: 'center' });
 
+    // Generate file name with date and time
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+    const formattedTime = `${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+    const fileName = `KaiXin_Receipt_${formattedDate}_${formattedTime}.pdf`;
+
     // Save PDF
-    doc.save('Malovetang_Receipt.pdf');
+    doc.save(fileName);
   }
 
   confirmOrder() {
@@ -222,13 +213,7 @@ export class CartComponent implements OnInit {
   dialogConfig.autoFocus = true;
   dialogConfig.width = '600px';
 
+  this.dialog.closeAll()
   this.dialog.open(this.finalConfirmationDialog, dialogConfig);
 }
-
-  sendEmail() {
-    //send generated reciept pdf to email
-    this.generatePDF();
-
-
-  }
 }

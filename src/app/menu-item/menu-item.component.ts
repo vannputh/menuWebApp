@@ -32,7 +32,7 @@ export class MenuItemComponent {
   @Input() imageSrc: string = '';
   @Input() title: string = '';
   @Input() price: number = 0;
-  @Input() itemType: 'drink' | 'main' | 'side' | 'soup' = 'main';
+  @Input() itemType: 'drink' | 'bottled' | 'main' | 'side' | 'soup' = 'main';
 
   @ViewChild('addToCartDialog', { static: true }) addToCartDialog!: TemplateRef<any>;
 
@@ -42,6 +42,8 @@ export class MenuItemComponent {
   dialogIceLevel: string = '';
   dialogSpiceLevel: string = '';
   dialogSoupType: string = '';
+  dialogIced: string = '';
+  dialogTopping: string = '';
 
   constructor(
       private dialog: MatDialog,
@@ -64,15 +66,9 @@ export class MenuItemComponent {
     this.dialogIceLevel = '100%';
     this.dialogSpiceLevel = '100%';
     this.dialogSoupType = 'sichuan_spicy';
+    this.dialogIced = 'yes';
+    this.dialogTopping = 'None';
   }
-
-  soupTypeLabels: { [key: string]: string } = {
-    sichuan_spicy: 'Sichuan Spicy Broth',
-    chongqing_spicy: 'Chongqing Spicy Broth',
-    milky_broth: 'Milky Mala Broth',
-    tomato: 'Tomato Broth',
-    wild_mushroom: 'Wild Mushroom Broth'
-  };
 
   onAddToCart(dialogRef: MatDialogRef<any>): void {
     const cartItem: CartItem = {
@@ -84,7 +80,9 @@ export class MenuItemComponent {
       sugarLevel: this.itemType === 'drink' ? this.dialogSugarLevel : undefined,
       iceLevel: this.itemType === 'drink' ? this.dialogIceLevel : undefined,
       spiceLevel: this.itemType === 'main' ? this.dialogSpiceLevel : undefined,
-      soupType: this.itemType === 'soup' ? this.dialogSoupType : undefined
+      soupType: this.itemType === 'soup' ? this.dialogSoupType : undefined,
+      iced: this.itemType === 'bottled' ? this.dialogIced : undefined,
+      topping: this.itemType === 'drink' ? this.dialogTopping : undefined
     };
 
     this.cartService.addToCart(cartItem);

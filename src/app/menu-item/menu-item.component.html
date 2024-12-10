@@ -1,9 +1,9 @@
 <div class="cards-container flex flex-wrap justify-center gap-8 pt-20">
   <div
     (click)="addToCart()"
-    class="block w-72 h-auto border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg dark:shadow-gray-700 flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-2xl dark:hover:shadow-gray-500 cursor-pointer"
+    class="w-72 h-auto border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg dark:shadow-gray-700 flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-2xl dark:hover:shadow-gray-500 cursor-pointer"
   >
-    <div class="w-full p-3">
+    <div class="w-full">
       <img
         [src]="imageSrc"
         [alt]="title"
@@ -98,6 +98,34 @@
                                 <option value="50%">50%</option>
                                 <option value="75%">75%</option>
                                 <option value="100%">100%</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="block font-semibold text-gray-800 dark:text-gray-300 mb-2 font-poppins">Topping</label>
+                            <select
+                                    [(ngModel)]="dialogTopping"
+                                    class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-red-500 font-poppins bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-300"
+                            >
+                                <option value="None">None</option>
+                                <option value="pearls">Pearls</option>
+                                <option value="grass_jelly">Grass Jelly</option>
+                                <option value="aloe_vera">Aloe Vera</option>
+                                <option value="coconut_jelly">Coconut Jelly</option>
+                                <option value="pudding">Pudding</option>
+                            </select>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="itemType === 'bottled'">
+                        <div class="mb-5">
+                            <label class="block font-semibold text-gray-800 dark:text-gray-300 mb-2 font-poppins">Iced?</label>
+                            <select
+                                    [(ngModel)]="dialogIced"
+                                    class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-red-500 font-poppins bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-300"
+                            >
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
                             </select>
                         </div>
                     </ng-container>

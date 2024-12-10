@@ -8,6 +8,8 @@ export interface CartItem {
   spiceLevel?: string;
   specialInstructions?: string;
   soupType?: string;
+  iced?: string;
+  topping?: string;
 }
 
 
