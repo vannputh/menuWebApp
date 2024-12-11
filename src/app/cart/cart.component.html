@@ -150,6 +150,42 @@
             >
                 Download Receipt
             </button>
+            <button
+                    (click)="sendEmail()"
+                    class="mt-6 px-6 py-3 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
+            >
+                Send Email
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #emailDialog let-dialogRef="dialogRef">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden animate-scale-in p-8 text-center relative">
+            <!-- Close Button -->
+            <button
+                    (click)="dialogRef.close()"
+                    class="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-400 transition-colors"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-4">Send Receipt</h2>
+            <input
+                    type="email"
+                    [(ngModel)]="customerEmail"
+                    class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-red-500 outline-none bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-300 mb-4"
+                    placeholder="Enter your email"
+            />
+            <button
+                    (click)="sendReceiptEmail(dialogRef)"
+                    class="px-6 py-3 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
+            >
+                Send
+            </button>
         </div>
     </div>
 </ng-template>

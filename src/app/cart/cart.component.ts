@@ -22,6 +22,7 @@ export class CartComponent implements OnInit {
 
   @ViewChild('receiptDialog', { static: true }) receiptDialog!: TemplateRef<any>;
     @ViewChild('finalConfirmationDialog', { static: true }) finalConfirmationDialog!: TemplateRef<any>;
+  @ViewChild('emailDialog', { static: true }) emailDialog!: TemplateRef<any>;
 
   private logoImage: string = 'public/logo.png';  private specialInstructions: string | undefined;
   customerName: any;
@@ -32,6 +33,9 @@ export class CartComponent implements OnInit {
     tomato: 'Tomato Broth',
     wild_mushroom: 'Wild Mushroom Broth'
   };
+  customerEmail: string = '';
+
+
   constructor(private cartService: CartService, private dialog: MatDialog) {}
 
   ngOnInit() {
@@ -63,6 +67,54 @@ export class CartComponent implements OnInit {
     this.cartService.removeItem(index);
   }
 
+sendReceiptEmail(dialogRef: MatDialogRef<any>) {
+  if (this.customerEmail) {
+    // Generate PDF blob
+    const pdfBlob = this.generatePDF();
+
+    const formData = new FormData();
+    formData.append('pdf', pdfBlob, 'receipt.pdf');
+    formData.append('customerEmail', this.customerEmail);
+    formData.append('items', JSON.stringify(this.items));
+    formData.append('total', this.total.toString());
+    formData.append('paymentMethod', this.paymentMethod);
+
+    // Add error handling for network issues
+    fetch('http://localhost:3000/api/send-order-email', { // Make sure to use the correct server URL
+      method: 'POST',
+      body: formData
+    })
+    .then(async response => {
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error('Server response:', text);
+        throw new Error('Invalid server response');
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send email');
+      }
+
+      return data;
+    })
+    .then(data => {
+      console.log(`Email sent to ${this.customerEmail}`);
+      dialogRef.close();
+      alert('Receipt has been sent to your email!');
+    })
+    .catch(error => {
+      console.error('Error sending email:', error);
+      alert('Failed to send email. Please try again.');
+    });
+  } else {
+    console.error('Email address is required');
+    alert('Please enter a valid email address');
+  }
+}
+
   checkout() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -85,7 +137,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  generatePDF() {
+  generatePDF(): Blob {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -95,14 +147,6 @@ export class CartComponent implements OnInit {
     // White background
     doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, 210, 297, 'F');
-
-    // Add logo
-    if (this.logoImage) {
-      try {
-        doc.addImage(this.logoImage, 'SVG', 20, 10, 30, 30);      } catch (err) {
-        console.error('Error adding logo:', err);
-      }
-    }
 
     // Header
     doc.setFontSize(20);
@@ -197,14 +241,8 @@ export class CartComponent implements OnInit {
     doc.setTextColor(150, 150, 150);
     doc.text('Thank you for your purchase!', 105, yOffset, { align: 'center' });
 
-    // Generate file name with date and time
-    const now = new Date();
-    const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
-    const formattedTime = `${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-    const fileName = `KaiXin_Receipt_${formattedDate}_${formattedTime}.pdf`;
-
-    // Save PDF
-    doc.save(fileName);
+    // Return the PDF as a Blob
+    return doc.output('blob');
   }
 
   confirmOrder() {
@@ -216,4 +254,14 @@ export class CartComponent implements OnInit {
   this.dialog.closeAll()
   this.dialog.open(this.finalConfirmationDialog, dialogConfig);
 }
+
+  sendEmail() {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '400px';
+
+  this.dialog.open(this.emailDialog, dialogConfig);
+}
+
 }

@@ -110,7 +110,6 @@ app.get('/api/side-dishes', async (req, res) => {
   }
 });
 
-// New route for sending order confirmation email
 app.post('/api/send-order-email', upload.single('pdf'), async (req, res) => {
   try {
     const {
