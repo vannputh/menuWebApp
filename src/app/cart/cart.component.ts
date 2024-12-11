@@ -200,7 +200,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
         yOffset += 6;
         doc.setFontSize(8);
         doc.setTextColor(100, 100, 100);
-        doc.text([specialInstructions, iceLevel, spiceLevel].filter(Boolean).join(' | '), 20, yOffset);
+        doc.text([specialInstructions, iceLevel, spiceLevel, iced, toppings, soupType].filter(Boolean).join(' | '), 20, yOffset);
         doc.setFontSize(10);
       }
 
