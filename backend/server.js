@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/restaurant')
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB:', err));
 
@@ -83,7 +83,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Existing routes (kept from your original code)
-app.get('/api/drinks', async (req, res) => {
+app.get('/drinks', async (req, res) => {
   try {
     const drinks = await Drink.find();
     res.json(drinks);
@@ -92,7 +92,7 @@ app.get('/api/drinks', async (req, res) => {
   }
 });
 
-app.get('/api/main-dishes', async (req, res) => {
+app.get('/main-dishes', async (req, res) => {
   try {
     const mainDishes = await MainDish.find();
     res.json(mainDishes);
@@ -101,7 +101,7 @@ app.get('/api/main-dishes', async (req, res) => {
   }
 });
 
-app.get('/api/side-dishes', async (req, res) => {
+app.get('/side-dishes', async (req, res) => {
   try {
     const sideDishes = await SideDish.find();
     res.json(sideDishes);
@@ -110,7 +110,7 @@ app.get('/api/side-dishes', async (req, res) => {
   }
 });
 
-app.post('/api/send-order-email', upload.single('pdf'), async (req, res) => {
+app.post('/send-order-email', upload.single('pdf'), async (req, res) => {
   try {
     const {
       customerEmail,

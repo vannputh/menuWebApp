@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SideDish } from './side-dishes.interface';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class SideDishesService {
-  private apiUrl = 'http://localhost:3000/api/side-dishes';
+  private apiUrl = environment.apiUrl + '/side-dishes';
 
   constructor(private http: HttpClient) {}
 

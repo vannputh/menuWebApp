@@ -24,7 +24,7 @@ export class CartComponent implements OnInit {
     @ViewChild('finalConfirmationDialog', { static: true }) finalConfirmationDialog!: TemplateRef<any>;
   @ViewChild('emailDialog', { static: true }) emailDialog!: TemplateRef<any>;
 
-  private logoImage: string = 'public/logo.png';  private specialInstructions: string | undefined;
+  private specialInstructions: string | undefined;
   customerName: any;
   soupTypeNames: { [key: string]: string } = {
     sichuan_spicy: 'Sichuan Spicy Broth',
@@ -103,6 +103,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     .then(data => {
       console.log(`Email sent to ${this.customerEmail}`);
       dialogRef.close();
+      this.cartService.clearCart();
       alert('Receipt has been sent to your email!');
     })
     .catch(error => {
@@ -113,6 +114,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     console.error('Email address is required');
     alert('Please enter a valid email address');
   }
+
 }
 
   checkout() {
@@ -126,7 +128,6 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
 
   generateQRCode() {
     try {
-      // Replace with your actual payment URL or data
       const paymentUrl = 'https://pay.ababank.com/bVH6Ad2ZPvdhGdJd8';
       const qr = QRCode(0, 'H');
       qr.addData(paymentUrl);
@@ -157,7 +158,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     // Customer Name Header
     doc.setFontSize(14);
     doc.setTextColor(220, 20, 60);
-    doc.text(`Customer Name: ${this.customerName}`, 20, 50);
+    doc.text(`Customer Name: ${this.customerName || 'Guest'}`, 20, 50);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 50);
 
     // Table Headers
@@ -262,6 +263,6 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
   dialogConfig.width = '400px';
 
   this.dialog.open(this.emailDialog, dialogConfig);
-}
+  }
 
 }
