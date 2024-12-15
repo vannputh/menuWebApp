@@ -1,4 +1,14 @@
 import {
+  animate,
+  animateChild,
+  group,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-FKWK4J2G.js";
+import {
   A11yModule,
   BidiModule,
   Directionality,
@@ -19,17 +29,7 @@ import {
   getRtlScrollAxisType,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-C3D7JZCV.js";
-import {
-  animate,
-  animateChild,
-  group,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-FKWK4J2G.js";
+} from "./chunk-4SWVMXET.js";
 import {
   DOCUMENT,
   Location
@@ -92,6 +92,7 @@ import {
   ɵɵtemplate,
   ɵɵviewQuery
 } from "./chunk-DI64XV7G.js";
+import "./chunk-5OPE3T2R.js";
 import {
   animationFrameScheduler,
   asapScheduler,
@@ -100,7 +101,6 @@ import {
   isObservable,
   merge
 } from "./chunk-4N4GOYJH.js";
-import "./chunk-5OPE3T2R.js";
 import {
   ConnectableObservable,
   Observable,

@@ -38,19 +38,22 @@ const sideDishSchema = new mongoose.Schema({
   imageSrc: String
 });
 
-// Order Schema (new)
 const orderSchema = new mongoose.Schema({
   customerEmail: String,
-  items: [
-    {
-      title: String,
-      quantity: Number,
-      price: Number,
-      specialInstructions: String
-    }
-  ],
+  customerName: String,
+  items: [{
+    title: String,
+    quantity: Number,
+    price: Number,
+    specialInstructions: String
+  }],
   total: Number,
   paymentMethod: String,
+  status: {
+    type: String,
+    enum: ['pending', 'completed'],
+    default: 'pending'
+  },
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -60,29 +63,7 @@ const MainDish = mongoose.model('MainDish', mainDishSchema);
 const SideDish = mongoose.model('SideDish', sideDishSchema);
 const Order = mongoose.model('Order', orderSchema);
 
-// Multer configuration for file uploads
-const upload = multer({
-  storage: multer.memoryStorage(),
-  fileFilter: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    if (ext !== '.pdf') {
-      return cb(new Error('Only PDFs are allowed'), false);
-    }
-    cb(null, true);
-  },
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
-});
-
-// Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_APP_PASSWORD
-  }
-});
-
-// Existing routes (kept from your original code)
+// Routes
 app.get('/drinks', async (req, res) => {
   try {
     const drinks = await Drink.find();
@@ -110,7 +91,59 @@ app.get('/side-dishes', async (req, res) => {
   }
 });
 
-app.post('/send-order-email', upload.single('pdf'), async (req, res) => {
+app.get('/orders', async (req, res) => {
+    try {
+        const orders = await Order.find();
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.patch('/order/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findByIdAndUpdate(
+        id,
+        { status },
+        { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Multer configuration for file uploads
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (ext !== '.pdf') {
+      return cb(new Error('Only PDFs are allowed'), false);
+    }
+    cb(null, true);
+  },
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
+});
+
+// Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_APP_PASSWORD
+  }
+});
+
+app.post('/api/send-order-email', upload.single('pdf'), async (req, res) => {
   try {
     const {
       customerEmail,
@@ -170,3 +203,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

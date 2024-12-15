@@ -1,0 +1,11 @@
+<div class="admin-login">
+    <h2>Admin Login</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</div>

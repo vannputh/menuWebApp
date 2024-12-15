@@ -243,6 +243,15 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     doc.text('Thank you for your purchase!', 105, yOffset, { align: 'center' });
 
     // Return the PDF as a Blob
+    const pdfBlob = doc.output('blob');
+
+    // Create a download link and trigger the download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(pdfBlob);
+    link.download = 'receipt.pdf';
+    link.click();
+
+    // Return the PDF as a Blob
     return doc.output('blob');
   }
 
