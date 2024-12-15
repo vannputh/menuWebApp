@@ -16,7 +16,7 @@ export class OrderService {
         return this.http.get<Order[]>(this.apiUrl);
     }
 
-    updateOrderStatus(orderId: string, status: 'pending' | 'completed'): Observable<Order> {
+    updateOrderStatus(orderId: Order, status: "pending" | "completed"): Observable<Order> {
         return this.http.patch<Order>(`${this.apiUrl}/${orderId}`, { status });
     }
 }

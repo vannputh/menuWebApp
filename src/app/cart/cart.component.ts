@@ -19,9 +19,10 @@ export class CartComponent implements OnInit {
   total: number = 0;
   paymentMethod: 'cash' | 'khqr' = 'cash';
   qrCodeUrl: string = '';
+  errorMessage: string = '';
 
   @ViewChild('receiptDialog', { static: true }) receiptDialog!: TemplateRef<any>;
-    @ViewChild('finalConfirmationDialog', { static: true }) finalConfirmationDialog!: TemplateRef<any>;
+  @ViewChild('finalConfirmationDialog', { static: true }) finalConfirmationDialog!: TemplateRef<any>;
   @ViewChild('emailDialog', { static: true }) emailDialog!: TemplateRef<any>;
 
   private specialInstructions: string | undefined;
@@ -34,9 +35,10 @@ export class CartComponent implements OnInit {
     wild_mushroom: 'Wild Mushroom Broth'
   };
   customerEmail: string = '';
+  private orderId: any;
 
 
-  constructor(private cartService: CartService, private dialog: MatDialog) {}
+  constructor(protected cartService: CartService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.cartService.getCartItems().subscribe({
@@ -67,64 +69,55 @@ export class CartComponent implements OnInit {
     this.cartService.removeItem(index);
   }
 
-sendReceiptEmail(dialogRef: MatDialogRef<any>) {
-  if (this.customerEmail) {
-    // Generate PDF blob
-    const pdfBlob = this.generatePDF();
+  async sendReceiptEmail(dialogRef: MatDialogRef<any>) {
+    if (!this.customerEmail) {
+      alert('Please enter a valid email address');
+      return;
+    }
 
-    const formData = new FormData();
-    formData.append('pdf', pdfBlob, 'receipt.pdf');
-    formData.append('customerEmail', this.customerEmail);
-    formData.append('items', JSON.stringify(this.items));
-    formData.append('total', this.total.toString());
-    formData.append('paymentMethod', this.paymentMethod);
+    try {
+      // Generate PDF blob
+      const pdfBlob = this.generatePDF();
 
-    // Add error handling for network issues
-    fetch('http://localhost:3000/api/send-order-email', { // Make sure to use the correct server URL
-      method: 'POST',
-      body: formData
-    })
-    .then(async response => {
-      const text = await response.text();
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        console.error('Server response:', text);
-        throw new Error('Invalid server response');
-      }
+      const formData = new FormData();
+      formData.append('pdf', pdfBlob, 'receipt.pdf');
+      formData.append('customerName', this.customerName);
+      formData.append('customerEmail', this.customerEmail);
+
+      const response = await fetch('http://localhost:3000/api/send-order-email', {
+        method: 'POST',
+        body: formData
+      });
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to send email');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send email');
       }
 
-      return data;
-    })
-    .then(data => {
-      console.log(`Email sent to ${this.customerEmail}`);
+      const data = await response.json();
+      console.log('Email sent successfully:', data);
       dialogRef.close();
       this.cartService.clearCart();
       alert('Receipt has been sent to your email!');
-    })
-    .catch(error => {
-      console.error('Error sending email:', error);
-      alert('Failed to send email. Please try again.');
-    });
-  } else {
-    console.error('Email address is required');
-    alert('Please enter a valid email address');
-  }
 
-}
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('Failed to send email. Please try again later.');
+    }
+  }
 
   checkout() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '600px';
-
-    this.dialog.open(this.receiptDialog, dialogConfig);
+  if (this.items.length === 0) {
+    return;
   }
+
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '600px';
+
+  this.dialog.open(this.receiptDialog, dialogConfig);
+}
 
   generateQRCode() {
     try {
@@ -158,7 +151,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     // Customer Name Header
     doc.setFontSize(14);
     doc.setTextColor(220, 20, 60);
-    doc.text(`Customer Name: ${this.customerName || 'Guest'}`, 20, 50);
+    doc.text(`Customer Name: ${this.customerName}`, 20, 50);
     doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 50);
 
     // Table Headers
@@ -243,26 +236,61 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
     doc.text('Thank you for your purchase!', 105, yOffset, { align: 'center' });
 
     // Return the PDF as a Blob
-    const pdfBlob = doc.output('blob');
+    return doc.output('blob');
+  }
+
+  downloadReceipt() {
+    // Return the PDF as a Blob
+    const doc = this.generatePDF();
+    const pdfBlob = new Blob([doc], { type: 'application/pdf' });
 
     // Create a download link and trigger the download
     const link = document.createElement('a');
     link.href = URL.createObjectURL(pdfBlob);
     link.download = 'receipt.pdf';
     link.click();
-
-    // Return the PDF as a Blob
-    return doc.output('blob');
   }
 
   confirmOrder() {
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
-  dialogConfig.width = '600px';
+  if (!this.customerName) {
+    this.errorMessage = 'Please enter your name.';
+    return;
+  }
 
-  this.dialog.closeAll()
-  this.dialog.open(this.finalConfirmationDialog, dialogConfig);
+  this.errorMessage = '';
+
+  const orderData = {
+    orderId: this.orderId,
+    customerEmail: this.customerEmail,
+    customerName: this.customerName,
+    items: this.items,
+    total: this.total,
+    paymentMethod: this.paymentMethod
+  };
+
+  fetch('http://localhost:3000/api/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(orderData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Order created:', data);
+    this.orderId = data.orderId;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '600px';
+
+    this.dialog.closeAll();
+    this.dialog.open(this.finalConfirmationDialog, dialogConfig);
+  })
+  .catch(error => {
+    console.error('Error creating order:', error);
+    this.errorMessage = 'Failed to create order. Please try again.';
+  });
 }
 
   sendEmail() {
@@ -274,4 +302,7 @@ sendReceiptEmail(dialogRef: MatDialogRef<any>) {
   this.dialog.open(this.emailDialog, dialogConfig);
   }
 
+  clearCart() {
+    this.cartService.clearCart();
+  }
 }
