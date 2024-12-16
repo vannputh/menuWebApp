@@ -147,7 +147,7 @@ const upload = multer({
 });
 
 // Nodemailer transporter
-app.post('/api/send-order-email', upload.single('pdf'), async (req, res) => {
+app.post('/send-order-email', upload.single('pdf'), async (req, res) => {
   try {
     const { customerEmail, orderId, customerName } = req.body;
 
@@ -232,7 +232,7 @@ app.post('/api/send-order-email', upload.single('pdf'), async (req, res) => {
   }
 });
 
-app.post('/api/orders', async (req, res) => {
+app.post('/orders', async (req, res) => {
   try {
     const { customerEmail, customerName, items, total, paymentMethod } = req.body;
 
