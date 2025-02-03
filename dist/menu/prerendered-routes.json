@@ -1,8 +1,0 @@
-{
-  "routes": [
-    "/cart",
-    "/drinks",
-    "/main-dishes",
-    "/side-dishes"
-  ]
-}
