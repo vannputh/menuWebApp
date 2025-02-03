@@ -1,27 +1,52 @@
-# Menu
+# Menu Web App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+## Overview
+This is a web application designed to manage and display menus for a restaurant or similar business. It leverages TypeScript, HTML, and JavaScript for frontend development, with tailwind for styling, and Docker for containerization.
 
-## Development server
+## Features
+- **Menu Management**: Easily add, edit, and delete menu items through a user-friendly interface.
+- **Admin Interface**: A dedicated admin panel allows for the efficient management of menu items, including uploading images and setting prices.
+- **Email Notifications**: Integrated email notification system using Nodemailer to inform customers about special offers or updates.
+- **Search Functionality**: Quickly find menu items using the built-in search feature.
+- **Category Management**: Organize menu items into categories for easy navigation.
+- **Order Tracking**: Track customer orders and manage order statuses.
+- **Secure Authentication**: User authentication and authorization to ensure secure access to the admin panel.
+- **Database Integration**: Connects to MongoDB for efficient data storage and retrieval.
+- **File Uploads**: Supports file uploads using Multer for menu item images.
+- **Environment Configuration**: Uses dotenv for managing environment variables.
+- **Dockerized Setup**: Easily deploy the application using Docker for consistent environments across development and production.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
+1. Clone the repository:
+   ```
+   git clone https://github.com/vannputh/menuWebApp.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd menuWebApp
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Build the project:
+   ```
+   npm run build
+   ```
+5. Start the application:
+   ```
+   npm start
+   ```
 
-## Code scaffolding
+## Usage
+- Access the application via `http://localhost:3000`
+- Use the admin interface to manage menu items
+- Configure email notifications as needed
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Contributing
+If you wish to contribute, please fork the repository and submit a pull request.
 
-## Build
+## License
+This project is licensed under the MIT License.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
